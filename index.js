@@ -66,3 +66,12 @@ setInterval(sendDate, 1000);
 document.querySelector("body").addEventListener("click", function(){
   document.querySelector(".before-test").classList.toggle("test");
 });
+
+//MOUSE EVENT
+var cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', function(e){
+  var x = e.clientX;
+  var y = e.clientY;
+  cursor.style.left = x + "px";
+  cursor.style.top = y + "px";
+})

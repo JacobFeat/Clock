@@ -1,6 +1,7 @@
 body{
   margin: 0;
   padding: 0;
+  cursor: none;
 }
 
 .contrainer{
@@ -90,6 +91,7 @@ body{
   margin:auto;
 }
 
+
 .test{
   width: 200px;
   height: 200px;
@@ -99,4 +101,33 @@ body{
   margin:auto;
   background-image: url("../konrad.png");
   background-size: cover;
+  transform-origin: 50%;
+  animation: rotating-kundzik 1s infinite linear;
+
+}
+@keyframes rotating-kundzik {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+
+  }
+}
+
+/* MOUSE EVENT  */
+ #cursor{
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  box-sizing: border-box;
+  transition: 0.1s;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  background-image: url("konrad.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: rotating-kundzik 5s infinite linear;
 }
