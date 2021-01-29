@@ -1,113 +1,68 @@
-// DISPLAY SUPPORT ----------------------------------------------------------------
-let currentResultText = "";
-document.querySelector(".display").innerHTML = currentResultText;
 
-let display = document.querySelector(".display");
+// Setting a clock
+const secHand = document.querySelector(".sec-hand");
+const minHand = document.querySelector(".min-hand");
+const hourHand = document.querySelector(".hour-hand");
 
-addTextToDisplay(".add");
-addTextToDisplay(".minus");
-addTextToDisplay(".multiply");
-addTextToDisplay(".divide");
-addTextToDisplay(".zero");
-addTextToDisplay(".one");
-addTextToDisplay(".two");
-addTextToDisplay(".three");
-addTextToDisplay(".four");
-addTextToDisplay(".five");
-addTextToDisplay(".six");
-addTextToDisplay(".seven");
-addTextToDisplay(".eight");
-addTextToDisplay(".nine");
-addTextToDisplay(".dot");
+function setDate(){
+  const today = new Date();
+  const sec = today.getSeconds();
+  const secDeg = sec*6+90;
 
+  secHand.style.transform = `rotate(${secDeg}deg)`;
+  if(secDeg===90){
+    secHand.classList.add("no-transition");
+  }
+  else{
+    secHand.classList.remove("no-transition");
+  }
 
-document.querySelector(".clear").addEventListener("click", function() {
-  display.innerHTML = "";
-  currentAmount = "";
-  currentNumbers = "";
-  parseInt(currentNumbers, 10);
-  parseInt(currentAmount, 10);
-});
+  const min = today.getMinutes();
+  const minDeg = min*6+90;
+  minHand.style.transform = `rotate(${minDeg}deg)`;
+  if(minDeg===90){
+    minHand.classList.add("no-transition");
+  }
+  else{
+    minHand.classList.remove("no-transition");
+  }
 
-document.querySelector(".delete").addEventListener("click", function() {
-  display.innerHTML = display.innerHTML.slice(0, -1);
-});
-
-function addTextToDisplay(ids) {
-  document.querySelector(ids).addEventListener("click", function() {
-    let textContent = document.querySelector(ids).textContent;
-    let addingText = document.createTextNode("" + textContent);
-    display.appendChild(addingText);
-  })
-};
-
-// CALCULATOR OPERATIONS ----------------------------------------------------------
-function add(num1, num2) {
-  return Number(num1) + Number(num2);
+  const hour = today.getHours();
+  const hourDeg = hour*30+90;
+  hourHand.style.transform = `rotate(${hourDeg}deg)`;
+  if(hourDeg===90){
+    hourHand.classList.add("no-transition");
+  }
+  else{
+    hourHand.classList.remove("no-transition");
+  }
 }
 
-function minus(num1, num2) {
-  return Number(num1) - Number(num2);
+setInterval(setDate, 1000);
+
+// Showing minute on the screen
+function sendDate(){
+  const today = new Date();
+  const showMin = document.querySelector(".show-untime");
+  let currentHour = today.getHours();
+  let currentMinute = today.getMinutes();
+  let currentSecond = today.getSeconds();
+  const currentTime = currentHour+":"+currentMinute+":"+currentSecond;
+
+
+  if(currentSecond<2){
+    document.querySelector(".unshow-time").classList.add("show-time");
+    document.querySelector(".show-time").innerHTML = currentHour+":"+currentMinute+":0"+currentSecond;
+  }
+  else{
+    document.querySelector(".unshow-time").classList.remove("show-time");
+  }
+
 }
 
-function multiple(num1, num2) {
-  return Number(num1) * Number(num2);
-}
+setInterval(sendDate, 1000);
 
-function divide(num1, num2) {
-  return Number(num1) / Number(num2);
-}
-
-function calculator(operation, num1, num2) {
-  return operation(num1, num2);
-}
-
-
-
-// MECHANISM SUPPORT --------------------------------------------------------------
-let currentResult = 0;
-let currentNumbers = "";
-let currentAmount = "";
-
-parseInt(currentAmount, 10);
-parseInt(currentNumbers, 10);
-
-
-let one = document.querySelector(".one").textContent;
-document.querySelector(".one").addEventListener("click", function() {
-  currentNumbers = currentNumbers + one;
+//for fun
+document.querySelector("body").addEventListener("click", function(){
+  document.querySelector(".before-test").classList.toggle("test");
 });
-
-let two = document.querySelector(".two").textContent;
-document.querySelector(".two").addEventListener("click", function() {
-  currentNumbers = currentNumbers + two;
-});
-
-let four = document.querySelector(".four").textContent;
-document.querySelector(".four").addEventListener("click", function() {
-  currentAmount = currentAmount + four;
-});
-
-let five = document.querySelector(".five").textContent;
-document.querySelector(".five").addEventListener("click", function() {
-  currentAmount = currentAmount + five;
-});
-
-
-// document.querySelector(".add").addEventListener("click", function(){
-//   currentResult = Number(currentAmount) + Number(currentNumbers);
-//   document.querySelector(".result").addEventListener("click", function(){
-//     currentResult = Number(currentAmount) + Number(currentNumbers);
-//   })
-// })
-
-function adding(num1, num2) {
-  document.querySelector(".add").addEventListener("click", function() {
-    currentResult = Number(document.querySelector(num1).textContent) + Number(document.querySelector(num2).textContent);
-    document.querySelector(".result").addEventListener("click", function() {
-      currentResult = Number(currentAmount) + Number(currentNumbers);
-    })
-  })
-}
-
-adding("")
